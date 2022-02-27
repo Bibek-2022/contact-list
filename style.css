@@ -14,3 +14,7 @@
 .user-card span {
   margin: 0.75rem;
 }
+
+.highlight {
+  background-color: aquamarine;
+}

@@ -4,7 +4,9 @@
 
 const apiUrl = "https://randomuser.me/api/?";
 const listElm = document.querySelector("#user-list");
-
+const countElm = document.querySelector("#user-count");
+let usrArgs = [];
+// let count = 0;
 // display User
 const displayUsers = (users) => {
   let str = "";
@@ -33,6 +35,7 @@ const displayUsers = (users) => {
     `;
   });
   listElm.innerHTML = str;
+  countElm.innerHTML = users.length;
 };
 
 // Fetching the data
@@ -44,9 +47,9 @@ const fetchUser = (params = "results=20") => {
     })
     .then((data) => {
       console.log(data);
-      const users = data.results;
+      usrArgs = data.results;
 
-      displayUsers(users);
+      displayUsers(usrArgs);
     })
     .catch(() => console.log(error));
 };
@@ -59,4 +62,23 @@ const handleOnChange = (e) => {
   console.log(e.value);
   const params = `results=20&gender=${e.value}`;
   fetchUser(params);
+};
+
+// on key
+
+const handleOnSearch = (e) => {
+  const str = e.value.toLowerCase();
+  const filteredArgs = usrArgs.filter((item) => {
+    const userFullName = (
+      item.name.first +
+      "" +
+      item.name.last
+    ).toLocaleLowerCase();
+    if (userFullName.includes(str)) {
+      document.querySelector("h4").classList.add("highlight");
+      return item;
+    }
+  });
+
+  displayUsers(filteredArgs);
 };
