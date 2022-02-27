@@ -22,7 +22,7 @@ const displayUsers = (users) => {
         <div class="card">
             <img src="${user.picture.medium}" class="card-img-top" alt="..." />
             <div class="card-body user-card">
-            <h4 class = "text-center">${user.name.title} ${user.name.first} ${user.name.last}</h4>
+            <h4 class = "text-center">${user.name.title} <span id="unique highlight"></span>${user.name.first} ${user.name.last}</h4>
           
              <div><span><i class="fa-solid fa-mobile-button"></i></span>${user.cell}</div>
              <div><span><i class="fa-solid fa-at"></i></span>${user.email}</div>
@@ -75,10 +75,15 @@ const handleOnSearch = (e) => {
       item.name.last
     ).toLocaleLowerCase();
     if (userFullName.includes(str)) {
-      document.querySelector("h4").classList.add("highlight");
       return item;
     }
   });
 
   displayUsers(filteredArgs);
+  let arr = document.querySelectorAll("h4");
+  console.log(arr);
+  //   arr.map((x) => x.classList.add("highlight"));
+  arr.forEach((element) => {
+    element.classList.add("highlight");
+  });
 };
